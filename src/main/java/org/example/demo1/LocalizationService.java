@@ -4,8 +4,12 @@ import java.sql.*;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LocalizationService {
+
+    private static final Logger LOGGER = Logger.getLogger(LocalizationService.class.getName());
 
     private static final String DB_NAME = "bmi_localization";
     private static final String DB_USER = "root";
@@ -46,7 +50,7 @@ public class LocalizationService {
             System.out.println("✅ Loaded localization strings for language: " + lang + " from " + dbUrl);
         } catch (SQLException e) {
             System.err.println("❌ Database connection failed: " + dbUrl);
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
 
         return strings;

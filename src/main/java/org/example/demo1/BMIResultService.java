@@ -4,8 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BMIResultService {
+
+    private static final Logger LOGGER = Logger.getLogger(BMIResultService.class.getName());
 
     // Environment variables with Docker-friendly defaults
     private static final String DB_HOST =
@@ -33,7 +37,7 @@ public class BMIResultService {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             System.err.println("❌ MySQL JDBC Driver not found.");
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
     }
 
@@ -59,7 +63,7 @@ public class BMIResultService {
             System.err.println("❌ Database connection failed.");
             System.err.println("URL: " + DB_URL);
             System.err.println("User: " + DB_USER);
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
     }
 }
